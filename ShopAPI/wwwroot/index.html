@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/model.js"></script>
+    <script src="js/LogAdminOrCustomer.js"></script>
+    <script src="js/AdministratorLogin.js"></script>
+    <script src="js/logInView.js"></script>
+    <script src="js/CustomerShopView.js"></script>
+    <script src="js/CtItemsView.js"></script>
+    <script src="js/CtAccountpg.js"></script>
+    <script src="js/AdministratorShopView.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <div id="app"></div>
+
+    <script>
+
+       getData();
+        
+        function updateView(){
+            let html ="";
+            if(model.currentPage == "start")html = updateViewLogAdminOrCustomer();
+            if (model.currentPage == "adminLogin") html = updateViewAdministratorLogin()
+             if(model.currentPage == "login")html = updateViewLogin();
+            if (model.currentPage == "CustomerShop")html = updateViewCShop();
+            if (model.currentPage == "CItemPage") html = updateViewCItems();
+             if(model.currentPage == "CAccountPage") html = updateViewCAccountPage();
+            if (model.currentPage == "AdminShop") html = updateViewAdministratorShop();
+
+            document.getElementById("app").innerHTML = html;
+        }
+        async function getData() {
+            const response =  axios.get('/Shop').then(res => {
+                
+                model.shop = res.data;
+               updateView();
+                console.log(model.shop);
+            });
+
+            
+            
+            
+            
+        }
+
+    </script>
+
+
+</body>
+</html>
